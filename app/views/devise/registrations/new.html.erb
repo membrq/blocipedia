@@ -4,8 +4,8 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-   <%= f.label :name %>
-   <%= f.text_field :name, class: 'form-control' %>
+   <%= f.label :name %><br />
+   <%= f.text_field :name %>
   </div>
 
   <div class="field">
@@ -27,7 +27,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: 'btn btn-default' %>
   </div>
 <% end %>
 
