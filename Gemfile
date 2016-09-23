@@ -9,6 +9,8 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'pry-rails'
+  gem 'listen'
 end
 
 gem 'sass-rails', '~> 5.0'
@@ -16,9 +18,11 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-gem 'bootstrap'
+gem 'jquery-turbolinks'
+gem 'bootstrap-sass'
 gem 'figaro'
-gem 'pry'
+gem 'devise'
+  gem 'faker'
 
 group :development, :test do
   gem 'byebug'
@@ -26,7 +30,6 @@ group :development, :test do
   gem 'spring'
   gem 'rspec-rails'
   gem 'shoulda'
-  gem 'faker'
   gem 'factory_girl_rails'
 end
 
