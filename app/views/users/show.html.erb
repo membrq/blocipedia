@@ -20,8 +20,16 @@
       <% end %>
     <div class="media-body">
       <h2 class="media-heading"><%= @user.name %></h2>
+      <small>
+        <%= pluralize(@user.wikis.count, 'wiki') %>
+      </small>
     </div>
   </div>
 </div>
 </div>
 <br />
+
+<h2>Wikis</h2><br />
+  <div>
+    <%= render @user.wikis %> <br />
+  </div>
