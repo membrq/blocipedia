@@ -1,8 +1,11 @@
 class WikisController < ApplicationController
 
-
   def index
     @wikis = Wiki.all
+  end
+
+  def new
+    @wiki = Wiki.new
   end
 
   def create
@@ -13,7 +16,7 @@ class WikisController < ApplicationController
 
     if @wiki.save
       flash[:notice] = "Entry saved successfully."
-      redirect_to @wiki
+      redirect_to [@wiki.user, @wiki]
     else
       flash[:alert] = "Entry failed to save."
       render :new
@@ -27,6 +30,23 @@ class WikisController < ApplicationController
 
   def show
     @wiki = current_user.wikis.find(params[:id])
+  end
+
+  def edit
+    @wiki = Wiki.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:user_id])
+    @wiki = @user.wikis.find(params[:id])
+
+    if @wiki.update(wiki_params)
+      flash[:notice] = "Wiki was updated."
+      redirect_to [@wiki.user, @wiki]
+    else
+      flash[:alert] = "There was an error updating your wiki."
+      render :edit
+    end
   end
 
   def destroy
