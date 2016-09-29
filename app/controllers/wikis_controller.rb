@@ -1,4 +1,5 @@
 class WikisController < ApplicationController
+  #after_action :verify_authorized
 
   def index
     @wikis = Wiki.all
@@ -38,6 +39,7 @@ class WikisController < ApplicationController
 
   def update
     @user = User.find(params[:user_id])
+    authorize @user
     @wiki = @user.wikis.find(params[:id])
 
     if @wiki.update(wiki_params)
@@ -51,6 +53,7 @@ class WikisController < ApplicationController
 
   def destroy
     @user = User.find(params[:user_id])
+    authorize @user
     @wiki = @user.wikis.find(params[:id])
 
     if @wiki.destroy

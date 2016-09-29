@@ -22,7 +22,8 @@ gem 'jquery-turbolinks'
 gem 'bootstrap-sass'
 gem 'figaro'
 gem 'devise'
-  gem 'faker'
+gem 'faker'
+gem 'pundit'
 
 group :development, :test do
   gem 'byebug'
