@@ -1,10 +1,14 @@
 class WikiPolicy < ApplicationPolicy
 
+  def edit?
+    user.admin? || (record.user == user)
+  end
+
   def update?
-    user.admin? || record.user == user
+    edit?
   end
 
   def destroy?
-    user.admin? || record.user == user
+    user.admin? || (record.user == user)
   end
 end

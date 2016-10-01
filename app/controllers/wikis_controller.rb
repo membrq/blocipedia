@@ -1,5 +1,4 @@
 class WikisController < ApplicationController
-  #after_action :verify_authorized
 
   def index
     @wikis = Wiki.all
@@ -30,17 +29,21 @@ class WikisController < ApplicationController
   end
 
   def show
-    @wiki = current_user.wikis.find(params[:id])
+    @user = User.find(params[:user_id])
+    @wiki = Wiki.find(params[:id])
+    #@wiki = current_user.wikis.find(params[:id])
   end
 
   def edit
+    @user = User.find(params[:user_id])
     @wiki = Wiki.find(params[:id])
+    authorize(@wiki)
   end
 
   def update
     @user = User.find(params[:user_id])
-    authorize @user
     @wiki = @user.wikis.find(params[:id])
+    authorize(@wiki)
 
     if @wiki.update(wiki_params)
       flash[:notice] = "Wiki was updated."
@@ -53,8 +56,8 @@ class WikisController < ApplicationController
 
   def destroy
     @user = User.find(params[:user_id])
-    authorize @user
     @wiki = @user.wikis.find(params[:id])
+    authorize(@wiki)
 
     if @wiki.destroy
       flash[:notice] = "Entry was deleted."
