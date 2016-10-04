@@ -6,7 +6,7 @@
       <div class="media">
         <div class="media-body">
           <h4 class="media-heading">
-            <p><%= link_to wiki.title, user_wiki_path(@wiki.user, @wiki) %></p>
+            <p><%= link_to wiki.title, user_wiki_path(wiki.user, wiki) %></p>
           </h4>
           <small>
             <%= wiki.body %>
@@ -17,7 +17,7 @@
   </div><br />
   <% if current_user %>
     <div class="col-md-4">
-      <%= link_to "New Wiki", new_user_wiki_path(current_user, @wiki), class: 'btn btn-success' %>
+      <%= link_to "New Wiki", new_user_wiki_path(current_user, Wiki.new), class: 'btn btn-success' %>
     </div>
   <% end %>
 </div>

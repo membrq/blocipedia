@@ -1,7 +1,7 @@
 class WikiPolicy < ApplicationPolicy
 
   def edit?
-    user.admin? || (record.user == user)
+    user.admin? || (record.user == user) 
   end
 
   def update?

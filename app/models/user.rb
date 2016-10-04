@@ -6,7 +6,9 @@ class User < ApplicationRecord
 
   has_many :wikis, dependent: :destroy
 
-  enum role: [:standard, :admin]
+  before_save { self.role ||= :standard }
+
+  enum role: [:standard, :premium, :admin]
 
   def avatar_url(size)
     gravatar_id = Digest::MD5::hexdigest(self.email).downcase
