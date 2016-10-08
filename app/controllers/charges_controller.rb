@@ -21,12 +21,24 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
-    flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
+    if charge.paid = true
+      flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
+      current_user.premium!
+    else
+      flash[:alert] = "Try again!"
+    end
+
     redirect_to user_path(current_user)
 
     rescue Stripe::CardError => e
       flash[:alert] = e.message
       redirect_to new_charge_path
+  end
+
+  def destroy
+    current_user.standard!
+    flash[:notice] = "You have successfully downgraded your account."
+    redirect_to user_path(current_user)
   end
 
  end

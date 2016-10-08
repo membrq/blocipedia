@@ -6,8 +6,6 @@ class User < ApplicationRecord
 
   has_many :wikis, dependent: :destroy
 
-  before_save { self.role ||= :standard }
-
   enum role: [:standard, :premium, :admin]
 
   def avatar_url(size)

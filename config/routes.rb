@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :wikis, only: [:index]
 
-  resources :charges, only: [:new, :create]
+  resources :charges, only: [:new, :create, :destroy]
 
   root 'welcome#index'
 end
