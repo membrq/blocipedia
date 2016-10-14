@@ -1,7 +1,7 @@
 class WikisController < ApplicationController
 
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
   end
 
   def new
@@ -12,7 +12,7 @@ class WikisController < ApplicationController
     @user = User.find(params[:user_id])
     @wiki = @user.wikis.new(wiki_params)
     @wiki.user = current_user
-    #@new_wiki = Item.new
+    #@new_wiki = Wiki.new
 
     if @wiki.save
       flash[:notice] = "Entry saved successfully."
@@ -32,6 +32,11 @@ class WikisController < ApplicationController
     @user = User.find(params[:user_id])
     @wiki = Wiki.find(params[:id])
     #@wiki = current_user.wikis.find(params[:id])
+
+    unless @wiki.public || current_user #== @wiki.user
+      flash[:alert] = "You must be a premium user to view private wikis!"
+      redirect_to wikis_path
+    end
   end
 
   def edit
