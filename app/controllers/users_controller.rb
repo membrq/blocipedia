@@ -5,5 +5,4 @@ class UsersController < ApplicationController
     @wikis = @user.wikis.all
     #@wikis = @user.wikis.visible_to(current_user)
   end
-
 end

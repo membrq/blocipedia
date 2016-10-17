@@ -32,7 +32,7 @@
 <% if @user.standard? %>
   <div class="row">
     <div class="col-lg-8" "pull-right">
-      <h4 class="text-muted">Upgrade your account now to become a Wiki Collaborator!</h4>
+      <h4 class="text-muted">Upgrade your account now to become a premium user!</h4>
       <p>
         <%= link_to 'Upgrade', new_charge_path, class: 'btn btn-primary btn-sm' %>
       </p>
@@ -44,7 +44,8 @@
 <% if @user.premium? %>
   <div class="row">
     <div class="col-lg-8" "pull-right">
-      <h4 class="text-muted">If you no longer want to be a Wiki Collaborator, downgrade your account here.</h4>
+      <h4 class="text-muted">If you no longer want to be a premium user, downgrade your account here.</h4>
+      <p>NB: All of your private wikis will be made public!</p>
       <p>
         <%= link_to 'Downgrade', charge_path(1), method: :destroy, class: 'btn btn-primary btn-sm' %>
       </p>  </div>

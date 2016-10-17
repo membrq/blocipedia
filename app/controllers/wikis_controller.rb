@@ -2,6 +2,7 @@ class WikisController < ApplicationController
 
   def index
     @wikis = Wiki.visible_to(current_user)
+    #@wikis = policy_scope(Wiki)
   end
 
   def new
@@ -31,9 +32,10 @@ class WikisController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
     #@wiki = current_user.wikis.find(params[:id])
 
-    unless @wiki.public || current_user #== @wiki.user
+    unless @wiki.private? || current_user == @wiki.user
       flash[:alert] = "You must be a premium user to view private wikis!"
       redirect_to wikis_path
     end
@@ -77,6 +79,15 @@ class WikisController < ApplicationController
     #  format.js
     #end
   end
+
+  def downgrade_wiki
+    @user = User.find(params[:user_id])
+    @wiki = @user.wikis.find(params[:id])
+
+    if @wiki.private?
+      @wiki.update_attribute!(private: false)
+    end
+  end 
 
   private
 
