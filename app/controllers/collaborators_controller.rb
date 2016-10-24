@@ -5,10 +5,10 @@ class CollaboratorsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     @wiki = @user.wikis.find(params[:id])
-    @collaborator = Collaborator.new(wiki_id: @wiki.id, user_id: @user.id])
-
+    @collaborator = Collaborator.new(wiki_id: params[:id], user_id: params[:user_id])
+    #@users.where.not[user_id: current_user.id]
 
     if @collaborator.save
       flash[:notice] = "Collaborator was added to this wiki."

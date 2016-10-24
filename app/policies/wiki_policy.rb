@@ -1,11 +1,11 @@
 class WikiPolicy < ApplicationPolicy
 
   def edit?
-    user.admin? || (record.user == user) 
+    user.admin? || (record.user == user)
   end
 
   def show?
-    record.private? || (user == record.user)
+    record.private? || user.admin? || (user == record.user)
   end
 
   def update?

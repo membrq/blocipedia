@@ -36,7 +36,7 @@ class WikisController < ApplicationController
     #@wiki = current_user.wikis.find(params[:id])
 
     unless @wiki.private? || current_user == @wiki.user
-      flash[:alert] = "You must be a premium user to view private wikis!"
+      flash[:alert] = "You must be a premium user or an admin to view private wikis!"
       redirect_to wikis_path
     end
   end
@@ -84,10 +84,15 @@ class WikisController < ApplicationController
     @user = User.find(params[:user_id])
     @wiki = @user.wikis.find(params[:id])
 
-    if @wiki.private?
-      @wiki.update_attribute!(private: false)
+    #if @wiki.private?
+    #  @wiki.update_attribute!(private: false)
+    #end
+
+    if @user.role == 'standard'
+      #@wiki == !private
+      @wiki.private == false
     end
-  end 
+  end
 
   private
 
