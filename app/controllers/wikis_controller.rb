@@ -42,9 +42,13 @@ class WikisController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:user_id])
+    #@user = User.find(params[:user_id])
+    @users = User.all
     @wiki = Wiki.find(params[:id])
+
     authorize(@wiki)
+
+    #@users = @user.where.not[user_id: current_user.id]
   end
 
   def update
@@ -80,24 +84,10 @@ class WikisController < ApplicationController
     #end
   end
 
-  def downgrade_wiki
-    @user = User.find(params[:user_id])
-    @wiki = @user.wikis.find(params[:id])
-
-    #if @wiki.private?
-    #  @wiki.update_attribute!(private: false)
-    #end
-
-    if @user.role == 'standard'
-      #@wiki == !private
-      @wiki.private == false
-    end
-  end
-
   private
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 
 end

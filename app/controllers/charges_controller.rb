@@ -37,6 +37,9 @@ class ChargesController < ApplicationController
 
   def destroy
     current_user.standard!
+    current_user.wikis.each do |wiki|
+      wiki.update(private: false)
+    end 
     flash[:notice] = "You have successfully downgraded your account."
     redirect_to user_path(current_user)
   end
