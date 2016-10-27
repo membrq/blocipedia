@@ -27,27 +27,17 @@
        </div>
      <% end %>
    </div>
-
-   <%# if @wiki.user == current_user %>
-     <%# form_tag collaborators_path, method: :post do %>
-       <%# text_field_tag :email %>
-       <%# submit_tag "Add Collaborator" %>
-     <%# end %>
-   <%# end %>
-
-  <div class="container">
-    <div class="row">
-    <h4>Wiki Collaborators</h4>
-      <% @users.each do |user| %>
-        <%= user.email %><br />
-        <%= if @wiki.user == current_user && @wiki.collaborator.blank? %>
-           <%= link_to "Add Collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post %><br />
-        <% end %>
-        <% if @wiki.user == current_user && @wiki.collaborator.present? %>
-           <%= link_to "Remove Collaborator", wiki_collaborator_path(@wiki, user_id: user.id), method: :delete, data: {confirm: 'Are you sure you want to delete this collaborator?'} %>
-        <% end %>
-      <% end %>
-     </div>
-  </div>
-<%# end %>
 </div>
+
+
+<div class="row">
+  <h4>Wiki Collaborators</h4>
+    <% @users.each do |user| %>
+      <%= user.email %><br />
+      <% if @wiki.user == current_user && @wiki.collaborator.present? %>
+        <%= link_to "Remove Collaborator", wiki_collaborator_path(@wiki, user_id: user.id), method: :delete, data: {confirm: "Are you sure you want to delete this collaborator?"} %>
+      <% else %>
+        <%= link_to "Add Collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post %>
+      <% end %>
+    <% end %>
+  </div>
