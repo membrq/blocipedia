@@ -2,7 +2,6 @@ class WikisController < ApplicationController
 
   def index
     @wikis = Wiki.visible_to(current_user)
-    #@wikis = policy_scope(Wiki)
   end
 
   def new
@@ -13,7 +12,6 @@ class WikisController < ApplicationController
     @user = User.find(params[:user_id])
     @wiki = @user.wikis.new(wiki_params)
     @wiki.user = current_user
-    #@new_wiki = Wiki.new
 
     if @wiki.save
       flash[:notice] = "Entry saved successfully."
@@ -22,11 +20,6 @@ class WikisController < ApplicationController
       flash[:alert] = "Entry failed to save."
       render :new
     end
-
-    #respond_to do |format|
-      #format.html
-      #format.js
-    #end
   end
 
   def show
@@ -42,13 +35,10 @@ class WikisController < ApplicationController
   end
 
   def edit
-    #@user = User.find(params[:user_id])
     @users = User.all
     @wiki = Wiki.find(params[:id])
 
     authorize(@wiki)
-
-    #@users = @user.where.not[user_id: current_user.id]
   end
 
   def update
@@ -77,11 +67,6 @@ class WikisController < ApplicationController
       flash[:alert] = "Entry couldn't be deleted. Try again!"
       redirect_to [@user]
     end
-
-    #respond_to do |format|
-    #  format.html
-    #  format.js
-    #end
   end
 
   private
