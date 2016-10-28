@@ -27,7 +27,7 @@ class CollaboratorsController < ApplicationController
       redirect_to [@wiki.user, @wiki]
     else
       flash[:error] = "Collaborator was not removed. Please try again."
-      render :edit 
+      render :edit
     end
   end
 end
